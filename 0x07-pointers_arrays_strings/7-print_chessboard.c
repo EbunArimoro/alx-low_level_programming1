@@ -1,5 +1,5 @@
-#include "main.h"ai/**
-
+#include "main.h"
+/**
  *print_chessboard - prints the chessboard
  *@a:array input
  *
