@@ -1,52 +1,44 @@
+#include "main.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
- * _strlen - find length of a string
- * @s: string
- * Return: int
+ * argstostr - A function that concatenates all arguments of your program
+ * @ac: number of arguments
+ * @av: array containing arguments
+ * Return: A pointer to string that containing all arguments
+ * or NULL if ac == 0, if av == NULL, or upon failure
  */
-
-
-int _strlen(char *s)
-{
-int size = 0;
-for (; s[size] != '\0'; size++)
-;
-return (size);
-}
-
-/**
- * *argstostr - description
- * @ac: int
- * @av: arguments
- * Return: string
- */
-
 char *argstostr(int ac, char **av)
 {
-int i = 0, nc = 0, j = 0, cmpt = 0;
-char *s;
+	char *new_str;
+	int len = 0, i = 0, j, k = 0;
 
-if (ac == 0 || av == NULL)
-	return (NULL);
+	if (ac <= 0 || av == NULL)
+		return (NULL);
 
-for (; i < ac; i++, nc++)
-	nc += _strlen(av[i]);
+	for (; i < ac; i++)
+	{
+		for (j = 0; av[i][j]; j++)
+			len++;
+		len++;
+	}
 
-s = malloc(sizeof(char) * nc + 1);
-if (s == 0)
-	return (NULL);
+	len++;
+	new_str = malloc(len * sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
 
-for (i = 0; i < ac; i++)
-{
-	for (j = 0; av[i][j] != '\0'; j++, cmpt++)
-		s[cmpt] = av[i][j];
+	for (i = 0; i < ac; i++)
+	{
+		for (j = 0; av[i][j]; j++)
+		{
+			new_str[k] = av[i][j];
+			k++;
+		}
+		new_str[k] = '\n';
+		k++;
+	}
 
-	s[cmpt] = '\n';
-	cmpt++;
-}
-s[cmpt] = '\0';
-
-return (s);
+	new_str[k] = '\0';
+	return (new_str);
 }
